@@ -1,0 +1,39 @@
+.banner {
+    background-image: url('https://react-first-app-five.vercel.app/static/media/b2.143e491242b908d2e1fa.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+  }
+  
+  .banner-text {
+    text-align: center;
+  }
+  
+  .banner-text h2,
+  .banner-text h3 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .highlight {
+    color: red;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: lightgray;
+  }
+  
