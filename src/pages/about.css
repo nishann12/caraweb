@@ -1,0 +1,180 @@
+.containerAbout{
+    width: 100%;
+    min-height: 100vh;
+}
+.knowUs{
+    width: 100%;
+    height: 300px;
+    background-image: url(https://react-first-app-five.vercel.app/static/media/banner.d27d94d3b18765a0d795.png);
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.weContainer{
+    display: flex;
+    width: 100%;
+}
+.imageBox{
+    width: 100%;
+    height: auto;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageBox img{
+    width: 80%;
+    height: 80%;
+    border-radius: 15px;
+}
+.textBox{
+    width: 50%;
+    height: auto;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 5%;
+    text-align: justify;
+    gap: 10px;
+}
+.textBox h1{
+    font-family: "League Spartan", sans-serif;
+    font-style: normal;
+}
+.locationContainer {
+    width:100%;
+    display: flex;
+}
+.addressBox{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 7%;
+}
+.locationBox{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+.Mapp{
+    width: 90% !important;
+}
+iframe{
+    width: 100%;
+    height: 400px;
+}
+.fifthContainer{
+    padding-top: 0;
+}
+.newsletter{
+    background-color: #041e42;
+    background-image: url(https://react-first-app-five.vercel.app/static/media/b14.b3fa0d36c31c33d909c6.png);
+    background-position: 50%;
+    background-repeat: repeat;
+    color:#fff;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    width: 100%;
+}
+.newsletter h2{
+    color: #f0f0f0;
+}
+
+  @media (max-width: 1024px) {
+    .weContainer {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .imageBox img {
+      max-width: 100%;
+    }
+  
+    .textBox {
+      max-width: 100%;
+    }
+  
+    .locationContainer {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .addressBox, .locationBox {
+      width: 90%;
+    }
+  }
+  
+  /* For tablets (up to 768px) */
+  @media (max-width: 768px) {
+    .newsletter {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .newsMail {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .newsMail input {
+      width: 70%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .containerAbout {
+      padding: 10px;
+    }
+      .imageBox  {
+        margin-top: 10px;
+      width: 100%;
+    }
+    .imageBox img{
+      width: 100%;
+    }
+    .textBox{
+      width: 100%;
+    }
+  
+    .weContainer {
+      flex-direction: column;
+    }
+  
+    .textBox h1 {
+      font-size: 20px;
+    }
+  
+    .textBox p {
+      font-size: 16px;
+    }
+  
+    .locationContainer {
+      flex-direction: column;
+    }
+  
+    .addressBox, .locationBox {
+      width: 100%;
+    }
+  
+    .newsMail input {
+      width: 100%;
+    }
+  
+    .newsMail button {
+      width: 100%;
+    }
+  }
+  

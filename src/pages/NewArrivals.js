@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ShoppingCart, Star } from 'lucide-react';
+import { useCart } from '../CartContext';
+const ProductCard = ({ brand, name, price, image }) => {
+  const { toggleCartItem } = useCart();
+  const [added, setAdded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-const ProductCard = ({ brand, name, price,  image }) => {
-    const cardStyle = {
+  const handleAddToCart = () => {
+    setAdded(!added);
+    toggleCartItem({ brand, name, price, image });
+  };
+
+  return (
+    <div 
+      style={{
         width: '18rem',
         margin: '1rem',
         padding: '1rem',
@@ -10,102 +21,52 @@ const ProductCard = ({ brand, name, price,  image }) => {
         border: '1px solid #dee2e6',
         transition: 'all 0.3s ease',
         backgroundColor: 'white',
-        boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-        cursor: 'pointer'
-      };
-      const hoverCardStyle = {
-        ...cardStyle,
-        boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
-      };
-    
-      const imageStyle = {
-        width: '100%',
-        height: '280px',
-        objectFit: 'cover',
-        marginBottom: '1rem'
-      };
-    
-      const brandStyle = {
-        color: '#0d6efd',
-        fontSize: '0.9rem',
-        fontWeight: '500',
-        marginBottom: '8px'
-      };
-    
-      const nameStyle = {
-        fontSize: '1.25rem',
-        fontWeight: '500',
-        marginBottom: '8px',
-        color: '#212529'
-      };
-    
-      const detailsContainerStyle = {
-        position: 'relative' 
-      };
-    
-      const ratingStyle = {
-        display: 'flex',
-        gap: '4px',
-        marginBottom: '8px'  
-      };
-    
-      const priceStyle = {
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-        color: '#212529'
-      };
-    
-      const buttonStyle = {
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        border: '1px solid #0d6efd',
-        backgroundColor: 'transparent',
-        color: '#0d6efd',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        boxShadow: isHovered
+          ? 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
+          : 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
         cursor: 'pointer',
-        padding: '8px',
-        transition: 'all 0.2s ease',
-        position: 'absolute',  
-        top: '0',          
-        right: '0',           
-      };
-const [isHovered, setIsHovered] = React.useState(false);
-return (
-    <div 
-      style={isHovered ? hoverCardStyle : cardStyle}
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img src={image} alt={name} style={imageStyle} />
-      <div style={detailsContainerStyle}>
-        <div style={brandStyle}>{brand}</div>
-        <div style={nameStyle}>{name}</div>
-        <div style={ratingStyle}>
+      <img src={image} alt={name} style={{ width: '100%', height: '280px', objectFit: 'cover', marginBottom: '1rem' }} />
+      
+      {/* Added position: 'relative' here */}
+      <div style={{ position: 'relative', paddingBottom: '40px' }}> 
+        <div style={{ color: '#0d6efd', fontSize: '0.9rem', fontWeight: '500', marginBottom: '8px' }}>{brand}</div>
+        <div style={{ fontSize: '1.25rem', fontWeight: '500', marginBottom: '8px', color: '#212529' }}>{name}</div>
+        <div style={{ display: 'flex', gap: '4px', marginBottom: '8px' }}>
           {[...Array(5)].map((_, i) => (
             <Star key={i} size={16} fill="gold" color="gold" />
           ))}
         </div>
-        <div style={priceStyle}>{price}/-</div>
-        <button 
-          style={buttonStyle}
-          onMouseOver={(e) => {
-            e.target.style.backgroundColor = '#0d6efd';
-            e.target.style.color = 'white';
-          }}
-          onMouseOut={(e) => {
-            e.target.style.backgroundColor = 'transparent';
-            e.target.style.color = '#0d6efd';
+        <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#212529' }}>{price}/-</div>
+
+        {}
+        <button
+          onClick={handleAddToCart}
+          onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
+          onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
+          style={{
+            backgroundColor: added ? 'red' : 'transparent',
+            color: added ? 'white' : 'green',
+            padding: '8px 12px',
+            border: `2px solid ${added ? 'red' : 'green'}`,
+            borderRadius: '18px',
+            position: 'absolute',
+            bottom: '10px',
+            right: '10px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
           }}
         >
-          <ShoppingCart size={20} />
+          <ShoppingCart size={20} className="cart-icon" />
         </button>
       </div>
     </div>
   );
 };
+
 const NewArrivals = () => {
     const containerStyle = {
       maxWidth: '1200px',
@@ -204,7 +165,7 @@ const NewArrivals = () => {
     return (
         <div style={containerStyle}>
           <div style={headerStyle}>
-            <h2 style={titleStyle}>Featured Products</h2>
+            <h2 style={titleStyle}>New Arrivals</h2>
             <p style={subtitleStyle}>Summer Collection New Modern Design</p>
           </div>
           <div style={gridStyle}>
@@ -212,6 +173,7 @@ const NewArrivals = () => {
               <ProductCard key={product.name} {...product} />
             ))}
           </div>
+          
         </div>
       );
 };

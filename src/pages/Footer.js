@@ -1,12 +1,10 @@
 import React from "react";
-
-
 const Footer = () => {
   return (
     <footer className="bg-light text-dark pt-4">
       <div className="container">
         <div className="row">
-          {/* Logo and Contact */}
+        
           <div className="col-md-4">
             <img 
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyF5hXBqwGEg0qUrsXboYN_dNLqGiSDSVy0Q&s" 
@@ -20,7 +18,6 @@ const Footer = () => {
             <p>Hours: 10 am - 6 pm</p>
           </div>
 
-          {/* About Links */}
           <div className="col-md-2">
             <p><strong>About</strong></p>
             <ul className="list-unstyled">
@@ -32,7 +29,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* My Account Links */}
+          
           <div className="col-md-2">
             <p><strong>My Account</strong></p>
             <ul className="list-unstyled">
@@ -44,7 +41,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* App and Payment Options */}
           <div className="col-md-4">
             <p><strong>Install App</strong></p>
             <p>From Apple Store or Google Play</p>
@@ -52,7 +48,7 @@ const Footer = () => {
               <img 
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3PHgC6IQOgvyIZdq-DS3jr8VprWjzm7zxnw&s" 
                 alt="App Store" 
-                width="135" // Same width as Google Play
+                width="135" 
               />
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
@@ -71,7 +67,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright */}
+        
         <div className="text-center mt-3 pb-3">
           <p>&copy; 2024, E-commerce Website - MyReact FirstApp</p>
         </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import './Banner.css';
-
 const Banner = () => {
   return (
     <div className="banner">
@@ -9,7 +8,10 @@ const Banner = () => {
         <h3>Up to <span className="highlight">70% off</span> - all t-shirts & Accessories</h3>
         <button style={{color:"red"}}>Explore More</button>
       </div>
+      
+  
     </div>
+
   );
 };
 
