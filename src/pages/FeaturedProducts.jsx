@@ -63,7 +63,7 @@ const ProductCard = ({ id, brand, name, price, image }) => {
           ₹{price}/-
         </div>
 
-        {/* Add to Cart Button */}
+        
         <button
           onClick={(e) => {
             e.stopPropagation();

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ShoppingCart, Star } from "lucide-react";
 import Footer from "./Footer";
 import { useCart } from "../CartContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const carouselImages = [
   {
@@ -23,23 +24,10 @@ const carouselImages = [
   },
 ];
 
-const products = [
-  { id: 1, brand: "ARROW", name: "Grey white HM", price: "390", image: "https://react-first-app-five.vercel.app/assets/shirt3.jpg" },
-  { id: 2, brand: "ALLEN SOLLY", name: "Red Beach HM", price: "490", image: "https://react-first-app-five.vercel.app/assets/shirt4.jpg" },
-  { id: 3, brand: "TOMMY HILFIGER", name: "Blue Beach HM", price: "490", image: "https://react-first-app-five.vercel.app/assets/shirt5.jpg" },
-  { id: 4, brand: "ALLEN SOLLY", name: "Black White Line", price: "590", image: "https://react-first-app-five.vercel.app/assets/shirt6.jpg" },
-  { id: 5, brand: "RAYMOND", name: "Cream White Line", price: "990", image: "https://react-first-app-five.vercel.app/assets/shirt7.jpg" },
-  { id: 6, brand: "LOUISE", name: "Demo Grey Slim", price: "390", image: "https://react-first-app-five.vercel.app/assets/hoodie2.jpg" },
-  { id: 7, brand: "Tommy Hilfiger", name: "Deep Blue", price: "390", image: "https://react-first-app-five.vercel.app/assets/hoodie3.jpg" },
-  { id: 8, brand: "LOUISE", name: "Demo Grey Slim", price: "390", image: "https://react-first-app-five.vercel.app/assets/hoodie4.jpg" },
-  { id: 9, brand: "LOUISE", name: "Silver Hoodie", price: "390", image: "https://react-first-app-five.vercel.app/assets/hoodie5.jpg" },
-];
-
 const ProductCard = ({ brand, name, price, image, id }) => {
   const navigate = useNavigate();
-  const { cart = [], toggleCartItem } = useCart(); 
+  const { cart = [], toggleCartItem } = useCart();
   const isInCart = cart.some((item) => item.id === id);
-  
 
   return (
     <div
@@ -69,7 +57,7 @@ const ProductCard = ({ brand, name, price, image, id }) => {
 
       <button
         onClick={(e) => {
-          e.stopPropagation(); // Prevents navigation when clicking the cart button
+          e.stopPropagation();
           toggleCartItem({ brand, name, price, image, id });
         }}
         onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")}
@@ -94,8 +82,39 @@ const ProductCard = ({ brand, name, price, image, id }) => {
 };
 
 export default function Product() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("https://react-ecomm-demo-backend-prosevo.onrender.com/api/products");
+        console.log("API Response:", response.data);
+
+        if (Array.isArray(response.data)) {
+          setProducts(response.data);
+        } else if (Array.isArray(response.data.products)) {
+          setProducts(response.data.products);
+        } else {
+          console.error("Unexpected response format");
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
   return (
     <div>
+      
       <div id="promoCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
           {carouselImages.map((_, index) => (
@@ -127,17 +146,28 @@ export default function Product() {
           ))}
         </div>
       </div>
-
       <div className="container mt-4">
         <div className="row g-3">
-          {products.map((product) => (
-            <div key={product.id} className="col-md-3">
-              <ProductCard {...product} />
-            </div>
-          ))}
+          {Array.isArray(products) ? (
+            products.map((product) => (
+              <div key={product._id} className="col-md-3">
+                <ProductCard
+                  id={product._id}
+                  brand={product.brand}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No products found</p>
+          )}
         </div>
       </div>
+
       <Footer />
     </div>
   );
 }
+
